@@ -9,7 +9,7 @@
       <img
         alt="Dokun"
         src="./assets/play.png"
-        style="width: 100%; max-width: 750px; max-height: 1000px"
+        style="max-width: 100%; height: auto; max-height: 95vh"
         @click="onPlayClick"
       />
     </div>
@@ -17,7 +17,7 @@
       <img
         alt="Durdur"
         src="./assets/pause.png"
-        style="width: 100%; max-width: 750px; max-height: 1000px"
+        style="max-width: 100%; height: auto; max-height: 95vh"
         @click="onPauseClick"
       />
     </div>
@@ -25,7 +25,7 @@
       <img
         alt="Bekleniyor"
         src="./assets/waiting.png"
-        style="width: 100%; max-width: 750px; max-height: 1000px"
+        style="max-width: 100%; height: auto; max-height: 95vh"
         @click="onWaitingClick"
       />
     </div>
@@ -33,7 +33,7 @@
       <img
         alt="Hata"
         src="./assets/error.png"
-        style="width: 100%; max-width: 750px; max-height: 1000px"
+        style="max-width: 100%; height: auto; max-height: 95vh"
         @click="onErrorClick"
       />
     </div>
