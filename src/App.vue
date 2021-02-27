@@ -72,9 +72,6 @@ export default {
   },
   methods: {
     createPlayer() {
-      //var source =
-      // "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3";
-      //var source = "https://radio.blknr.com/radio/8020/p8qDvRkXLDBZ6kse";
       var source = "https://edge.mixlr.com/channel/" + this.mixlrId;
       console.log(source);
       var player = new Audio(source);
