@@ -182,31 +182,3 @@ export default {
   margin-top: 60px;
 }
 </style>
-
-<!--
-<template>
-  <img alt="Vue logo" src="./assets/play.png" width="300" />
-  <HelloWorld msg="Hello Vue 23 in CodeSandbox!" />
-</template>
-
-<script>
-import HelloWorldVue from "./components/HelloWorld.vue";
-export default {
-  name: "App",
-  components: {
-    HelloWorld: HelloWorldVue,
-  },
-};
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
--->
