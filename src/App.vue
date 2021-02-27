@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 style="font-size: 100%; color: grey; margin-top: 0px; padding: 2px">
+      <h1 style="font-size: 100%; color: grey">
         {{ titlePrefix }} CANLI YAYIN
       </h1>
     </div>
