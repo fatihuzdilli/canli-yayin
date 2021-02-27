@@ -1,45 +1,49 @@
 <template>
   <div>
-    <h1 style="font-size: 100%; color: grey">{{ titlePrefix }} CANLI YAYIN</h1>
-  </div>
-  <div v-if="screen == 'play'">
-    <img
-      alt="Dokun"
-      src="./assets/play.png"
-      style="width: 100%; max-width: 750px; max-height: 1000px"
-      @click="onPlayClick"
-    />
-  </div>
-  <div v-if="screen == 'pause'">
-    <img
-      alt="Durdur"
-      src="./assets/pause.png"
-      style="width: 100%; max-width: 750px; max-height: 1000px"
-      @click="onPauseClick"
-    />
-  </div>
-  <div v-if="screen == 'waiting'">
-    <img
-      alt="Bekleniyor"
-      src="./assets/waiting.png"
-      style="width: 100%; max-width: 750px; max-height: 1000px"
-      @click="onWaitingClick"
-    />
-  </div>
-  <div v-if="screen == 'error'">
-    <img
-      alt="Hata"
-      src="./assets/error.png"
-      style="width: 100%; max-width: 750px; max-height: 1000px"
-      @click="onErrorClick"
-    />
-  </div>
-  <div v-if="showDebug">
-    {{ mixlrId }}
-    {{ titlePrefix }}
-    {{ showDebug }}
-    <div v-for="e in loggedEventTypes" v-bind:key="e.index">
-      {{ e }}
+    <div>
+      <h1 style="font-size: 100%; color: grey">
+        {{ titlePrefix }} CANLI YAYIN
+      </h1>
+    </div>
+    <div v-if="screen == 'play'">
+      <img
+        alt="Dokun"
+        src="./assets/play.png"
+        style="width: 100%; max-width: 750px; max-height: 1000px"
+        @click="onPlayClick"
+      />
+    </div>
+    <div v-if="screen == 'pause'">
+      <img
+        alt="Durdur"
+        src="./assets/pause.png"
+        style="width: 100%; max-width: 750px; max-height: 1000px"
+        @click="onPauseClick"
+      />
+    </div>
+    <div v-if="screen == 'waiting'">
+      <img
+        alt="Bekleniyor"
+        src="./assets/waiting.png"
+        style="width: 100%; max-width: 750px; max-height: 1000px"
+        @click="onWaitingClick"
+      />
+    </div>
+    <div v-if="screen == 'error'">
+      <img
+        alt="Hata"
+        src="./assets/error.png"
+        style="width: 100%; max-width: 750px; max-height: 1000px"
+        @click="onErrorClick"
+      />
+    </div>
+    <div v-if="showDebug">
+      {{ mixlrId }}
+      {{ titlePrefix }}
+      {{ showDebug }}
+      <div v-for="e in loggedEventTypes" v-bind:key="e.index">
+        {{ e }}
+      </div>
     </div>
   </div>
 </template>
