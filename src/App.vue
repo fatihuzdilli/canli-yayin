@@ -2,7 +2,7 @@
   <div>
     <div>
       <h1 style="font-size: 100%; color: grey">
-        {{ titlePrefix }} CANLI YAYIN
+        {{ title }}
       </h1>
     </div>
     <div v-show="screen == 'play'">
@@ -61,14 +61,15 @@ export default {
       loggedEventTypes: [],
       showDebug: window.location.hash.includes("fuu"),
       mixlrId: hashSplit.length > 1 ? hashSplit[1] : "mcrgf",
-      titlePrefix:
-        hashSplit.length > 2
+      title:
+        (hashSplit.length > 2
           ? decodeURI(hashSplit[2]).toUpperCase()
-          : "İSVİÇRE",
+          : "İSVİÇRE") + " CANLI YAYIN",
     };
   },
   created() {
     this.player = this.createPlayer();
+    document.title = this.title;
   },
   methods: {
     createPlayer() {
