@@ -118,6 +118,7 @@ export default {
       player.addEventListener("ended", this.onEndedEvent);
       player.addEventListener("stalled", this.onStalledEvent);
       player.addEventListener("error", this.onErrorEvent);
+      player.autoplay = true;
       return player;
     },
     /**
