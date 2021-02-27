@@ -123,33 +123,33 @@ export default {
     /**
      * EVENT HANDLERS FOR THE PLAYER
      */
-    onLoadStartEvent(e) {
+    onLoadStartEvent() {
       if (this.screen === "") {
         this.screen = "play";
       }
     },
-    onWaitingEvent(e) {
+    onWaitingEvent() {
       this.screen = "waiting";
     },
-    onPlayingEvent(e) {
+    onPlayingEvent() {
       this.screen = "pause";
     },
-    onPauseEvent(e) {
+    onPauseEvent() {
       this.screen = "play";
     },
-    onAbortEvent(e) {
+    onAbortEvent() {
       this.handleError();
     },
-    onEndedEvent(e) {
+    onEndedEvent() {
       this.handleError();
     },
-    onStalledEvent(e) {
+    onStalledEvent() {
       this.handleError();
     },
-    onErrorEvent(e) {
+    onErrorEvent() {
       this.handleError();
     },
-    handleError(e) {
+    handleError() {
       this.screen = "error";
       setTimeout(() => this.onErrorClick(), 5000);
     },
