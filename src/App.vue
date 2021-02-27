@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 style="font-size: 100%; color: grey">
+      <h1 style="font-size: 100%; color: grey; margin-top: 0px; padding: 2px">
         {{ titlePrefix }} CANLI YAYIN
       </h1>
     </div>
@@ -9,7 +9,7 @@
       <img
         alt="Dokun"
         src="./assets/play.png"
-        style="max-width: 100%; height: auto; max-height: 95vh"
+        style="max-width: 100%; height: auto; max-height: 80vh"
         @click="onPlayClick"
       />
     </div>
@@ -17,7 +17,7 @@
       <img
         alt="Durdur"
         src="./assets/pause.png"
-        style="max-width: 100%; height: auto; max-height: 95vh"
+        style="max-width: 100%; height: auto; max-height: 80vh"
         @click="onPauseClick"
       />
     </div>
@@ -25,7 +25,7 @@
       <img
         alt="Bekleniyor"
         src="./assets/waiting.png"
-        style="max-width: 100%; height: auto; max-height: 95vh"
+        style="max-width: 100%; height: auto; max-height: 80vh"
         @click="onWaitingClick"
       />
     </div>
@@ -33,7 +33,7 @@
       <img
         alt="Hata"
         src="./assets/error.png"
-        style="max-width: 100%; height: auto; max-height: 95vh"
+        style="max-width: 100%; height: auto; max-height: 80vh"
         @click="onErrorClick"
       />
     </div>
@@ -178,6 +178,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 </style>
