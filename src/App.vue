@@ -5,7 +5,7 @@
         {{ titlePrefix }} CANLI YAYIN
       </h1>
     </div>
-    <div v-if="screen == 'play'">
+    <div v-show="screen == 'play'">
       <img
         alt="Dokun"
         src="./assets/play.png"
@@ -13,7 +13,7 @@
         @click="onPlayClick"
       />
     </div>
-    <div v-if="screen == 'pause'">
+    <div v-show="screen == 'pause'">
       <img
         alt="Durdur"
         src="./assets/pause.png"
@@ -21,7 +21,7 @@
         @click="onPauseClick"
       />
     </div>
-    <div v-if="screen == 'waiting'">
+    <div v-show="screen == 'waiting'">
       <img
         alt="Bekleniyor"
         src="./assets/waiting.png"
@@ -29,7 +29,7 @@
         @click="onWaitingClick"
       />
     </div>
-    <div v-if="screen == 'error'">
+    <div v-show="screen == 'error'">
       <img
         alt="Hata"
         src="./assets/error.png"
@@ -166,11 +166,8 @@ export default {
       this.player.pause();
     },
     onErrorClick() {
-      if (this.player.paused) {
-        console.log("YE PAUSED CLICK");
+      if (this.screen === "error") {
         window.location.reload();
-      } else {
-        console.log("NO PAUSED CLICK");
       }
     },
   },
