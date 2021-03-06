@@ -55,15 +55,19 @@ export default {
   name: "App",
   data() {
     var hashSplit = window.location.hash.split("#");
+    var postHash = hashSplit.length > 1 ? hashSplit[1] : "";
+    var postHashSplit = postHash.split("/");
+    var postHash1 = postHashSplit[0];
+    var postHash2 = postHashSplit.length > 0 ? postHashSplit[1] : "";
     return {
       player: null,
       screen: "",
       loggedEventTypes: [],
       showDebug: window.location.hash.includes("fuu"),
-      mixlrId: hashSplit.length > 1 ? hashSplit[1] : "ndbda",
+      mixlrId: postHash1.length > 0 ? postHash1 : "ndbda",
       title:
-        (hashSplit.length > 2
-          ? decodeURI(hashSplit[2]).toUpperCase()
+        (postHash2 !== ""
+          ? decodeURI(postHash2).toUpperCase()
           : "İSVİÇRE-İTALYA") + " CANLI YAYIN",
     };
   },
