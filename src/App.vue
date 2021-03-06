@@ -60,11 +60,11 @@ export default {
       screen: "",
       loggedEventTypes: [],
       showDebug: window.location.hash.includes("fuu"),
-      mixlrId: hashSplit.length > 1 ? hashSplit[1] : "mcrgf",
+      mixlrId: hashSplit.length > 1 ? hashSplit[1] : "ndbda",
       title:
         (hashSplit.length > 2
           ? decodeURI(hashSplit[2]).toUpperCase()
-          : "İSVİÇRE") + " CANLI YAYIN",
+          : "İSVİÇRE-İTALYA") + " CANLI YAYIN",
     };
   },
   created() {
