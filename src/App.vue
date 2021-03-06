@@ -58,7 +58,7 @@ export default {
     var postHash = hashSplit.length > 1 ? hashSplit[1] : "";
     var postHashSplit = postHash.split("/");
     var postHash1 = postHashSplit[0];
-    var postHash2 = postHashSplit.length > 0 ? postHashSplit[1] : "";
+    var postHash2 = postHashSplit.length > 1 ? postHashSplit[1] : "";
     return {
       player: null,
       screen: "",
