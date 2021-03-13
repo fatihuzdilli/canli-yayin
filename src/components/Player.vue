@@ -78,18 +78,19 @@ export default {
       document.title = this.title;
     },
     source() {
-      this.createPlayer();
+      this.player = this.createPlayer();
+      this.screen = "";
     },
   },
   created() {
-    this.createPlayer();
+    this.player = this.createPlayer();
     document.title = this.title;
   },
   methods: {
     createPlayer() {
       console.log(this.source);
-      this.player = new Audio(this.source);
-      this.player.preload = "none";
+      var player = new Audio(this.source);
+      player.preload = "none";
       var events = [
         "abort",
         "canplay",
@@ -116,20 +117,21 @@ export default {
       ];
       for (var i = 0; i < events.length; i++) {
         var e = events[i];
-        this.player.addEventListener(e, (ev) => {
+        player.addEventListener(e, (ev) => {
           console.log(ev);
           this.loggedEventTypes.push(ev.type);
         });
       }
-      this.player.addEventListener("loadstart", this.onLoadStartEvent);
-      this.player.addEventListener("waiting", this.onWaitingEvent);
-      this.player.addEventListener("playing", this.onPlayingEvent);
-      this.player.addEventListener("pause", this.onPauseEvent);
-      this.player.addEventListener("abort", this.onAbortEvent);
-      this.player.addEventListener("ended", this.onEndedEvent);
-      this.player.addEventListener("stalled", this.onStalledEvent);
-      this.player.addEventListener("error", this.onErrorEvent);
-      this.player.autoplay = true;
+      player.addEventListener("loadstart", this.onLoadStartEvent);
+      player.addEventListener("waiting", this.onWaitingEvent);
+      player.addEventListener("playing", this.onPlayingEvent);
+      player.addEventListener("pause", this.onPauseEvent);
+      player.addEventListener("abort", this.onAbortEvent);
+      player.addEventListener("ended", this.onEndedEvent);
+      player.addEventListener("stalled", this.onStalledEvent);
+      player.addEventListener("error", this.onErrorEvent);
+      player.autoplay = true;
+      return player;
     },
     /**
      * EVENT HANDLERS FOR THE PLAYER
