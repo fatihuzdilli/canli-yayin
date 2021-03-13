@@ -64,7 +64,7 @@ export default {
   methods: {
     genericPlayerConfig(hashParts) {
       var source = atob(hashParts[0]);
-      var titlePrefix = hashParts.length === 2 ? hashParts[1] : "";
+      var titlePrefix = hashParts.length === 2 ? decodeURI(hashParts[1]) : "";
       return this.playerConfig(
         source,
         titlePrefix.toUpperCase() + " CANLI YAYIN"
@@ -72,7 +72,7 @@ export default {
     },
     mixlrPlayerFromHashPartsConfig(hashParts) {
       var mixlrId = hashParts[0];
-      var titlePrefix = hashParts.length === 2 ? hashParts[1] : "";
+      var titlePrefix = hashParts.length === 2 ? decodeURI(hashParts[1]) : "";
       return this.mixlrPlayerConfig(mixlrId, titlePrefix);
     },
     defaultMixlrPlayerConfig() {
