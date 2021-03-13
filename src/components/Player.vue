@@ -74,7 +74,7 @@ export default {
   },
   created() {
     this.player = this.createPlayer();
-    //document.title = this.title;
+    document.title = this.title;
   },
   methods: {
     createPlayer() {
