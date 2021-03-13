@@ -72,9 +72,14 @@ export default {
       loggedEventTypes: [],
     };
   },
+  watch: {
+    // whenever title changes, this function will run
+    title() {
+      document.title = this.title;
+    },
+  },
   created() {
     this.player = this.createPlayer();
-    document.title = this.title;
   },
   methods: {
     createPlayer() {
