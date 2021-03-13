@@ -1,177 +1,97 @@
 <template>
-  <div>
-    <div>
-      <h1 style="font-size: 100%; color: grey">
-        {{ title }}
-      </h1>
-    </div>
-    <div v-show="screen == 'play'">
-      <img
-        alt="Dokun"
-        src="./assets/play.png"
-        style="max-width: 100%; height: auto; max-height: 80vh"
-        @click="onPlayClick"
-      />
-    </div>
-    <div v-show="screen == 'pause'">
-      <img
-        alt="Durdur"
-        src="./assets/pause.png"
-        style="max-width: 100%; height: auto; max-height: 80vh"
-        @click="onPauseClick"
-      />
-    </div>
-    <div v-show="screen == 'waiting'">
-      <img
-        alt="Bekleniyor"
-        src="./assets/waiting.png"
-        style="max-width: 100%; height: auto; max-height: 80vh"
-        @click="onWaitingClick"
-      />
-    </div>
-    <div v-show="screen == 'error'">
-      <img
-        alt="Hata"
-        src="./assets/error.png"
-        style="max-width: 100%; height: auto; max-height: 80vh"
-        @click="onErrorClick"
-      />
-    </div>
-    <div v-if="showDebug">
-      {{ mixlrId }}
-      {{ titlePrefix }}
-      {{ showDebug }}
-      <div v-for="e in loggedEventTypes" v-bind:key="e.index">
-        {{ e }}
-      </div>
-    </div>
-  </div>
+  <Player
+    v-if="view.player != null"
+    v-bind:source="view.player.source"
+    v-bind:title="view.player.title"
+    v-bind:showDebug="showDebug"
+  />
 </template>
 
 
 
 <script>
+import Player from "./components/Player";
+
 export default {
+  components: {
+    Player,
+  },
   name: "App",
   data() {
-    var hashSplit = window.location.hash.split("#");
-    var postHash = hashSplit.length > 1 ? hashSplit[1] : "";
-    var postHashSplit = postHash.split("/");
-    var postHash1 = postHashSplit[0];
-    var postHash2 = postHashSplit.length > 1 ? postHashSplit[1] : "";
     return {
-      player: null,
-      screen: "",
-      loggedEventTypes: [],
-      showDebug: window.location.hash.includes("fuu"),
-      mixlrId: postHash1.length > 0 ? postHash1 : "ndbda",
-      title:
-        (postHash2 !== ""
-          ? decodeURI(postHash2).toUpperCase()
-          : "İSVİÇRE-İTALYA") + " CANLI YAYIN",
+      currentHash: window.location.hash,
+      currentParams: window.location.search,
     };
   },
+  computed: {
+    showDebug() {
+      return this.currentParams.includes("debug");
+    },
+    view() {
+      var hashPath = this.currentHash;
+      if (hashPath.length === 0) {
+        // Captures paths without a hash.
+        return {
+          player: this.defaultMixlrPlayerConfig(),
+        };
+      }
+
+      var config;
+      var hashParts;
+      if (hashPath.startsWith("#/")) {
+        hashParts = this.pathParts(hashPath.substring(2));
+      } else {
+        hashParts = this.pathParts(hashPath.substring(1));
+      }
+      console.log("hashparts: " + hashParts);
+      if (hashParts.length >= 2 && hashParts[0] === "p") {
+        // Captures paths like: #/p/<based64_of_source_url>/<optional_title>
+        config = this.genericPlayerConfig(hashParts.slice(1));
+      } else if (hashParts.length >= 1) {
+        // Captures paths like #/<mixlr_id>/<optional_title>
+        config = this.mixlrPlayerFromHashPartsConfig(hashParts);
+      }
+      return {
+        player: config,
+      };
+    },
+  },
   created() {
-    this.player = this.createPlayer();
-    document.title = this.title;
+    window.addEventListener("hashchange", () => {
+      this.currentHash = window.location.hash;
+    });
   },
   methods: {
-    createPlayer() {
-      var source = "https://edge.mixlr.com/channel/" + this.mixlrId;
-      console.log(source);
-      var player = new Audio(source);
-      player.preload = "none";
-      var events = [
-        "abort",
-        "canplay",
-        "canplaythrough",
-        "durationchange",
-        "emptied",
-        "ended",
-        "error",
-        "loadeddata",
-        "loadedmetadata",
-        "loadstart",
-        "pause",
-        "play",
-        "playing",
-        //"progress",
-        "ratechange",
-        "seeked",
-        "seeking",
-        "stalled",
-        "suspend",
-        //"timeupdate",
-        "volumechange",
-        "waiting",
-      ];
-      for (var i = 0; i < events.length; i++) {
-        var e = events[i];
-        player.addEventListener(e, (ev) => {
-          console.log(ev);
-          this.loggedEventTypes.push(ev.type);
-        });
-      }
-      player.addEventListener("loadstart", this.onLoadStartEvent);
-      player.addEventListener("waiting", this.onWaitingEvent);
-      player.addEventListener("playing", this.onPlayingEvent);
-      player.addEventListener("pause", this.onPauseEvent);
-      player.addEventListener("abort", this.onAbortEvent);
-      player.addEventListener("ended", this.onEndedEvent);
-      player.addEventListener("stalled", this.onStalledEvent);
-      player.addEventListener("error", this.onErrorEvent);
-      player.autoplay = true;
-      return player;
+    genericPlayerConfig(hashParts) {
+      var source = atob(hashParts[0]);
+      var titlePrefix = hashParts.length === 2 ? hashParts[1] : "";
+      return this.playerConfig(
+        source,
+        titlePrefix.toUpperCase() + " CANLI YAYIN"
+      );
     },
-    /**
-     * EVENT HANDLERS FOR THE PLAYER
-     */
-    onLoadStartEvent() {
-      if (this.screen === "") {
-        this.screen = "play";
-      }
+    mixlrPlayerFromHashPartsConfig(hashParts) {
+      var mixlrId = hashParts[0];
+      var titlePrefix = hashParts.length === 2 ? hashParts[1] : "";
+      return this.mixlrPlayerConfig(mixlrId, titlePrefix);
     },
-    onWaitingEvent() {
-      this.screen = "waiting";
+    defaultMixlrPlayerConfig() {
+      return this.mixlrPlayerConfig("ndbda", "İSVİÇRE-İTALYA");
     },
-    onPlayingEvent() {
-      this.screen = "pause";
+    mixlrPlayerConfig(id, titlePrefix) {
+      return this.playerConfig(
+        "https://edge.mixlr.com/channel/" + id,
+        titlePrefix.toUpperCase() + " CANLI YAYIN"
+      );
     },
-    onPauseEvent() {
-      this.screen = "play";
+    playerConfig(source, title) {
+      return {
+        title: title,
+        source: source,
+      };
     },
-    onAbortEvent() {
-      this.handleError();
-    },
-    onEndedEvent() {
-      this.handleError();
-    },
-    onStalledEvent() {
-      this.handleError();
-    },
-    onErrorEvent() {
-      this.handleError();
-    },
-    handleError() {
-      this.screen = "error";
-      setTimeout(() => this.onErrorClick(), 5000);
-    },
-    /**
-     * CLICK HANDLERS ON THE SCREEN
-     */
-    onPlayClick() {
-      this.player.play();
-    },
-    onPauseClick() {
-      this.player.pause();
-    },
-    onWaitingClick() {
-      this.player.pause();
-    },
-    onErrorClick() {
-      if (this.screen === "error") {
-        window.location.reload();
-      }
+    pathParts(path) {
+      return path.split("/");
     },
   },
 };
